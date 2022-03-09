@@ -1,0 +1,94 @@
+<h4>Monthly Death Premium Calculator</h4>
+<p-toast></p-toast>
+<div class="formgrid grid">
+  <div class="field col-12 md:col-6">
+    <label for="Name" class="bold block">Name:</label>
+    <input id="Name" type="text"
+           class="w-full"
+           styleClass="w-full"
+           [(ngModel)]="Request.Name"
+           (ngModelChange)="OnChange()"
+           aria-describedby="Name-Help"
+           required
+           pInputText>
+  </div>
+
+  <div class="field col-12 md:col-6">
+    <label for="Occupation" class="bold">Occupation:</label>
+    <p-dropdown id="Occupation"
+                class="w-full"
+                styleClass="w-full"
+                [options]="Occupations"
+                optionLabel="Name"
+                optionValue="Name"
+                [(ngModel)]="Request.Occupation"
+                (ngModelChange)="OnChange()">
+    </p-dropdown>
+  </div>
+
+  <div class="field col-12 md:col-6">
+    <label for="DateOfBirth" class="bold">
+      Date Of Birth:
+    </label>
+    <p-calendar id="DateOfBirth"
+                class="w-full"
+                styleClass="w-full"
+                dateFormat="dd M yy"
+                [showIcon]="true"
+                [maxDate]="MaxDateOfBirth"
+                [readonlyInput]="true"
+                [(ngModel)]="Request.DateOfBirth"
+                (ngModelChange)="CalcAge()">
+
+    </p-calendar>
+  </div>
+
+  <div class="field col-12 md:col-6">
+    <label for="Age" class="bold">
+      Age:
+    </label>
+    <input id="Age" type="text" class="w-full p-disabled"
+           styleClass="w-full"
+           pInputText
+           disabled="disabled"
+           [(ngModel)]="Request.Age">
+  </div>
+
+  <div class="field col-12 md:col-6">
+    <label for="SumInsured" class="bold">
+      Sum Insured:
+    </label>
+    <p-inputNumber id="SumInsured"
+                   class="w-full"
+                   styleClass="w-full"
+                   min="0"
+                   max="10000000"
+                   mode="currency" currency="AUD" locale="en-AU"
+                   required
+                   [(ngModel)]="Request.SumInsured"
+                   (ngModelChange)="OnChange()">
+    </p-inputNumber>
+  </div>
+
+  <div class="field col-12 md:col-6">
+    <label for="Premium" class="bold">
+      Premium:
+    </label>
+    <p-inputNumber id="Premium"
+                   class="w-full"
+                   styleClass="w-full"
+                   disabled="disabled"
+                   mode="currency" currency="AUD" locale="en-AU"
+                   [(ngModel)]="Response.Premium">
+    </p-inputNumber>
+  </div>
+
+  <div class="field col-12">
+    <p-button label="Calculate Premium"
+              class="p-buttom-sm p-button-raised p-button-rounded"
+              [loading]="IsLoading"
+              [disabled]="IsCalcPremiumDisabled"
+              (onClick)="CalculatePremium()">
+    </p-button>
+  </div>
+</div>
